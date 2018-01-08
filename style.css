@@ -1,0 +1,42 @@
+body {
+    /*background-image: url("img/back1.jpeg") fixed;*/
+}
+
+}
+footer{
+  
+  color: #ffffff;
+  text-align: center;
+  padding: 30px;
+  margin-top: 30px;
+}
+
+body {
+   /* background-image: url("img/back1.jpg");*/
+}
+
+#head1{
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-family: Andale Mono, monospace;
+
+}
+
+#home-section{
+
+  max-width: 500px;
+    margin: auto;
+
+    padding: 10px;
+
+}
+
+#log-info{
+
+  max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 10px;
+    opacity: 0.5;
+}
+
