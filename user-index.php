@@ -62,10 +62,30 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="# ">Welcome !</a></li>
-              <li><a href="# ">Ushan</a></li>
+            <li style="padding-top:8px;"><button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-sm">Admin Details</button></li>
+              <li><a href=""></a></li>
 
-            <li><a href="user_login.php">Log out</a></li>
+
+          <!--admin details modal start over here-->
+
+              <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="margin-top:10px;">
+            <div class="modal-dialog modal-sm" role="document">
+              <div class="modal-content">
+                <div class="admin-details">
+                  <img src="img/user.png" alt="" height="100px" height="100px" style="padding-left:100px;padding-top:10px;">
+                    <h3 style="margin:10px;">Welcome <small> <?php session_start(); echo $_SESSION['fname']; ?> </small></h3>
+
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!--end of the admin details modal-->
+
+
+            <li><a href="logout.php">Log out</a></li>
 
           </ul>
         </div>
@@ -235,28 +255,90 @@ renderTime();
 
 
 
-<script>
-     function initMap() {
-       var option = {lat:7.2906, lng:80.6337};
-       var map = new google.maps.Map(document.getElementById('map'), {
-         zoom: 14 ,
-         center: option
-       });
-       var marker = new google.maps.Marker({
-         position: option,
-         map: map
-       });
+  <script>
+      var customLabel = {
+        restaurant: {
+          label: 'R'
+        },
+        bar: {
+          label: 'B'
+        }
+      };
+
+        function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: new google.maps.LatLng(7.8731, 80.7718),
+          zoom: 8
+        });
+        var infoWindow = new google.maps.InfoWindow;
+
+          // Change this depending on the name of your PHP or XML file
+          downloadUrl('show_xml.php', function(data) {
+            var xml = data.responseXML;
+            var markers = xml.documentElement.getElementsByTagName('marker');
+            Array.prototype.forEach.call(markers, function(markerElem) {
+              var id = markerElem.getAttribute('alert_id');
+              var name = markerElem.getAttribute('reporter');
+              var address = markerElem.getAttribute('headlines');
+              var type = markerElem.getAttribute('description');
+              var image = markerElem.getAttribute('image');
+              var point = new google.maps.LatLng(
+                  parseFloat(markerElem.getAttribute('lat')),
+                  parseFloat(markerElem.getAttribute('long')));
+
+              var infowincontent = document.createElement('div');
+              var strong = document.createElement('strong');
+              strong.textContent = name
+              infowincontent.appendChild(strong);
+              infowincontent.appendChild(document.createElement('br'));
+
+              var text = document.createElement('text');
+              text.textContent = address
+              infowincontent.appendChild(text);
+              infowincontent.appendChild(document.createElement('br'));
+
+              var text = document.createElement('text');
+              text.textContent = type
+              infowincontent.appendChild(text);
+
+              var icon = customLabel[type] || {};
+              var marker = new google.maps.Marker({
+                map: map,
+                position: point,
+                label: icon.label
+              });
+              marker.addListener('click', function() {
+                infoWindow.setContent(infowincontent);
+                infoWindow.open(map, marker);
+              });
+            });
+          });
+        }
 
 
-       marker.addListner('click', function(){
-         infoWindow.open(map, marker);
-       });
-     }
 
-   </script>
-   <script async defer
-     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdBp67pwEBLHGZYSawJs-cuanrHhmn7mk&callback=initMap">
-     </script>
+      function downloadUrl(url, callback) {
+        var request = window.ActiveXObject ?
+            new ActiveXObject('Microsoft.XMLHTTP') :
+            new XMLHttpRequest;
+
+        request.onreadystatechange = function() {
+          if (request.readyState == 4) {
+            request.onreadystatechange = doNothing;
+            callback(request, request.status);
+          }
+        };
+
+        request.open('GET', url, true);
+        request.send(null);
+      }
+
+      function doNothing() {}
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdBp67pwEBLHGZYSawJs-cuanrHhmn7mk&callback=initMap">
+    </script>
+
 
 
 

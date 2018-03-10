@@ -60,8 +60,29 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="# ">Welcome !</a></li>
-              <li><a href="# ">Ushan</a></li>
+            <li style="padding-top:8px;"><button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-sm">Admin Details</button></li>
+                  <li><a href=""></a></li>
+
+
+              <!--admin details modal start over here-->
+
+                  <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="margin-top:10px;">
+                <div class="modal-dialog modal-sm" role="document">
+                  <div class="modal-content">
+                    <div class="admin-details">
+                      <img src="img/user.png" alt="" height="100px" height="100px" style="padding-left:100px;padding-top:10px;">
+                        <h3 style="margin:10px;">Welcome <small> <?php session_start(); echo $_SESSION['fname']; ?> </small></h3>
+
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <!--end of the admin details modal-->
+
+
             <li><div class="dropdown create" style="padding-top:7px;padding-left:10px;">
               <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               User Managment
@@ -74,7 +95,7 @@
 
                 </ul>
               </div></li>
-            <li><a href="user_login.php">Log out</a></li>
+            <li><a href="logout.php">Log out</a></li>
 
           </ul>
         </div>
@@ -127,22 +148,30 @@
           <h3>System Overviwe</h3>
           <div class="panel panel-default">
             <div class="panel-heading">
-                  <h3 class="panel-title">Admin Users</h3>
+                  <h3 class="panel-title">Count Visitors</h3>
             </div>
                 <div class="panel-body">
                     <div class="well">
-                      <h2><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 000</h2>
+                      <!-- hitwebcounter Code START -->
+                <a href="http://www.hitwebcounter.com" target="_blank">
+                <img src="http://hitwebcounter.com/counter/counter.php?page=6882005&style=0001&nbdigits=5&type=page&initCount=0" title="free hits" Alt="free hits"   border="0" >
+                </a>  <br/>
+                                          <!-- hitwebcounter.com -->
+                                          <a href="http://www.hitwebcounter.com" title="" target="_blank" style="font-family: ;
+                                          font-size: px; color: #; text-decoration:  ;">
+                                          </a>
                     </div>
                 </div>
 
           </div>
           <div class="panel panel-default">
             <div class="panel-heading">
-                  <h3 class="panel-title">Available Alerts</h3>
+                  <h3 class="panel-title">Calendar</h3>
             </div>
                 <div class="panel-body">
                     <div class="well">
-                      <h2><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> 000</h2>
+                    <iframe src="https://calendar.google.com/calendar/embed?height=300&amp;wkst=1&amp;bgcolor=%23ffffff&amp;src=ushanalwis81%40gmail.com&amp;color=%231B887A&amp;ctz=Asia%2FColombo" style="border:solid 1px #777" width="200" height="300" frameborder="0" scrolling="no"></iframe>
+
                     </div>
                 </div>
 

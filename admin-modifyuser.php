@@ -1,6 +1,45 @@
 <?php require_once('inc/connection.php'); ?>
+<?php
+
+if (!isset($_GET['id'])) {
+  //getting the user Information
+
+  $user_id = mysqli_real_escape_string($connection, $_GET['id']);
+$query = "SELECT * FROM users WHERE id{id} LIMIT 1";
+
+$reslut_set = mysqli_query($connection, $query);
+
+if ($reslut_set) {
+  if (mysqli_num_rows($reslut_set) == 1) {
+    //user found
+    $result =mysqli_fetch_assoc($reslut_set);
+
+    $fname =$result["fname"];
+    $lname =$result["lname"];
+    $age =$result["age"];
+    $position =$result["position"];
+    $contact_no =$result["contact_no"];
+    $email =$result["email"];
+    $user_role =$result["user_role"];
 
 
+
+  }else {
+    //user not found
+      header('Location: admin-users.php?err=user_notfound');
+  }
+}else {
+  //query unsuccseful
+  header('Location: admin-users.php?err=query_failed');
+
+}
+
+
+}
+
+
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,31 +54,26 @@
 
     <title>Admin |  Dashboard</title>
  <link rel="shortcut icon" type="img/png" href="img/life.png">
- <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="starter-template.css" rel="stylesheet">
       <link href="main.css" rel="stylesheet">
 
       <style>
-      #map {
-     height: 525px;
-     width: 100%;
-    }
-
-    #Clockdisplay{
-      margin: 10px;
-      color: black;
-      font-weight: bold;
+      #Clockdisplay{
+        margin: 10px;
+        color: black;
+        font-weight: bold;
 
 
-    }
+      }
 
       </style>
 
+
   </head>
 
-  <body onload="renderTime();">
-
+  <body>
 
     <nav class="navbar navbar-inverse">
       <div class="container">
@@ -113,8 +147,6 @@
                 <div class="col-md-3">
                   <div id="Clockdisplay">
                       </div>
-
-                </div>
             </div>
       </div>
   </header>
@@ -143,6 +175,7 @@
             <a href="admin-contacts.php" class="list-group-item"><span class="glyphicon glyphicon-earphone" aria-hidden="true" style="margin:4px;"></span>Contacts</a>
             <a href="admin-msg.php" class="list-group-item"><span class="glyphicon glyphicon-envelope" aria-hidden="true" style="margin:4px;"></span>Messeges</a>
 
+
         </div>
         <div class="onlineusers">
           <h3>System Overviwe</h3>
@@ -160,7 +193,6 @@
                                           <a href="http://www.hitwebcounter.com" title="" target="_blank" style="font-family: ;
                                           font-size: px; color: #; text-decoration:  ;">
                                           </a>
-
                     </div>
                 </div>
 
@@ -181,13 +213,81 @@
       </div>
       <div class="col-md-9">
         <div class="page-header">
-              <h3>Available Alerts <small>Disaster Managment System</small></h3>
+              <h3>Modify User <small>Disaster Managment System</small></h3>
         </div>
-           <div id="map"></div>
+              <div class="adduser-form">
+                      <h3 style="text-align:center;">Modify user Account </h3>
+                      <hr>
+                <form class="form-horizontal" method="post" action="admin-modifyuser.php">
+                   <div class="form-group">
+                           <label for="inputuserfname" class="col-sm-2 control-label">First Name </label>
+                       <div class="col-sm-10">
+                       <input type="text" class="form-control" name="inputuserfname" placeholder="first name">
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label for="inputuserlname" class="col-sm-2 control-label">Last Name </label>
+                         <div class="col-sm-10">
+                           <input type="text" class="form-control" name="insputlname" placeholder="last name">
+                         </div>
+                   </div>
+
+                   <div class="form-group">
+                       <label for="inputage" class="col-sm-2 control-label">Age</label>
+                         <div class="col-sm-10">
+                           <input type="text" class="form-control" name="inputage" placeholder="age">
+                         </div>
+                   </div>
+                   <div class="form-group">
+                       <label for="inputposition" class="col-sm-2 control-label">Position</label>
+                         <div class="col-sm-10">
+                           <input type="text" class="form-control" name="inputposition" placeholder="position">
+                         </div>
+                   </div>
+                   <div class="form-group">
+                       <label for="inputnumber" class="col-sm-2 control-label">Contact No</label>
+                         <div class="col-sm-10">
+                           <input type="number" class="form-control" name="inputnumber" placeholder="contact number">
+                         </div>
+                   </div>
+                   <div class="form-group">
+                       <label for="inputemail" class="col-sm-2 control-label">E mail</label>
+                         <div class="col-sm-10">
+                           <input type="inputemail" class="form-control" name="insputemail" placeholder="email">
+                         </div>
+                   </div>
+                   <hr>
+                   <div class="form-group" style="padding-left: 160px;">
+			            <select class="form-control" style="width: 100px;" name="role">
+
+
+						 		<option value="user">User</option>
+									<option value="admin">Admin</option>
+								</div>
+						</select>
+                   </div>
+                   <div class="form-group">
+                       <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                         <div class="col-sm-10">
+                           <input type="password" class="form-control" name="insputPassword" placeholder="Password">
+                         </div>
+                   </div>
+                   <div class="form-group">
+                       <div class="col-sm-offset-2 col-sm-10">
+                           <div class="checkbox">
+
+                           </div>
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <div class="col-sm-offset-2 col-sm-10">
+                             <button type="submit" class="btn btn-info">Modify</button>
+                       </div>
+                   </div>
+             </form>
+              </div>
       </div>
     </div>
-    <hr>
-
 
   </div>
 
@@ -273,89 +373,7 @@ renderTime();
 
 
 
-  <script>
-      var customLabel = {
-        restaurant: {
-          label: 'R'
-        },
-        bar: {
-          label: 'B'
-        }
-      };
 
-        function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: new google.maps.LatLng(7.8731, 80.7718),
-          zoom: 8
-        });
-        var infoWindow = new google.maps.InfoWindow;
-
-          // Change this depending on the name of your PHP or XML file
-          downloadUrl('show_xml.php', function(data) {
-            var xml = data.responseXML;
-            var markers = xml.documentElement.getElementsByTagName('marker');
-            Array.prototype.forEach.call(markers, function(markerElem) {
-              var id = markerElem.getAttribute('alert_id');
-              var name = markerElem.getAttribute('reporter');
-              var address = markerElem.getAttribute('headlines');
-              var type = markerElem.getAttribute('description');
-              var image = markerElem.getAttribute('image');
-              var point = new google.maps.LatLng(
-                  parseFloat(markerElem.getAttribute('lat')),
-                  parseFloat(markerElem.getAttribute('long')));
-
-              var infowincontent = document.createElement('div');
-              var strong = document.createElement('strong');
-              strong.textContent = name
-              infowincontent.appendChild(strong);
-              infowincontent.appendChild(document.createElement('br'));
-
-              var text = document.createElement('text');
-              text.textContent = address
-              infowincontent.appendChild(text);
-              infowincontent.appendChild(document.createElement('br'));
-
-              var text = document.createElement('text');
-              text.textContent = type
-              infowincontent.appendChild(text);
-
-              var icon = customLabel[type] || {};
-              var marker = new google.maps.Marker({
-                map: map,
-                position: point,
-                label: icon.label
-              });
-              marker.addListener('click', function() {
-                infoWindow.setContent(infowincontent);
-                infoWindow.open(map, marker);
-              });
-            });
-          });
-        }
-
-
-
-      function downloadUrl(url, callback) {
-        var request = window.ActiveXObject ?
-            new ActiveXObject('Microsoft.XMLHTTP') :
-            new XMLHttpRequest;
-
-        request.onreadystatechange = function() {
-          if (request.readyState == 4) {
-            request.onreadystatechange = doNothing;
-            callback(request, request.status);
-          }
-        };
-
-        request.open('GET', url, true);
-        request.send(null);
-      }
-
-      function doNothing() {}
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdBp67pwEBLHGZYSawJs-cuanrHhmn7mk&callback=initMap">
-    </script>
 
 
 

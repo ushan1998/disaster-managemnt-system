@@ -63,10 +63,31 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="# ">Welcome !</a></li>
-              <li><a href="# ">Ushan</a></li>
+            <li style="padding-top:8px;"><button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-sm">Admin Details</button></li>
+                <li><a href=""></a></li>
 
-            <li><a href="user_login.php">Log out</a></li>
+
+            <!--admin details modal start over here-->
+
+                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="margin-top:10px;">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="admin-details">
+                    <img src="img/user.png" alt="" height="100px" height="100px" style="padding-left:100px;padding-top:10px;">
+                      <h3 style="margin:10px;">Welcome <small> <?php session_start(); echo $_SESSION['fname']; ?> </small></h3>
+
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!--end of the admin details modal-->
+
+
+
+        <li><a href="logout.php">Log out</a></li>
 
           </ul>
         </div>
