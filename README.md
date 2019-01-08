@@ -1,7 +1,7 @@
 # disaster-managemnt-system
 
 The objective 
-.....................................................................................................................................
+
 
 The objective of the web application is to provide the facility of reporting incidents occurring in the Western Province to the public.
 The administrative responsibilities are given to officials like Police stations, Grama Niladari, 
@@ -13,7 +13,7 @@ The application will be a convenient solution for people to get informed about a
 
  
 The goal of the application is to achieve the following: 
-...................................................................................................................................... 
+
 ● Create Administrator accounts that gives them the ability to create user accounts and manage them 
 ● Give users the ability to input data
 ● Incidents can be seen on a map (Google maps) 
